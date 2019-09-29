@@ -6,7 +6,8 @@
 #define BINAURALRADIO_OPUS_BASE_WRAPPER_H
 
 #include <cstddef>
-#include "AudioPacket.h"
+#include <audio_packet.h>
+
 class OpusBaseWrapper{
 public:
 
