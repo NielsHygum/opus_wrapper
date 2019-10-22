@@ -22,6 +22,12 @@ private:
 
 public:
 
+    static constexpr size_t _sample_size = sizeof(int16_t);
+    static constexpr int _sampleing_rate = 16000;
+    static constexpr int _number_of_frames = sampling_period * static_cast<float>(_sampleing_rate);//480*4;
+    static constexpr size_t _compession_ratio = _sampleing_rate*_channels* _sample_size*8/_compressed_bit_rate;
+    static constexpr size_t _chunck_size = _number_of_frames*_channels*_sample_size;
+
     OpusEncoderWrapper();
     ~OpusEncoderWrapper();
 

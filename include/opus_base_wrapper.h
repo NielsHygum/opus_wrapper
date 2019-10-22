@@ -17,12 +17,10 @@ public:
     }
 
     static constexpr int _channels = 1;
-    static constexpr int _sampleing_rate = 48000;
     static constexpr int _compressed_bit_rate = 64000;
-    static constexpr float sampling_period = 0.040;
-    static constexpr int _number_of_frames = sampling_period * static_cast<float>(_sampleing_rate);//480*4;
-    static constexpr size_t _compession_ratio = _sampleing_rate*_channels* sizeof(float)*8/_compressed_bit_rate;
-    static constexpr size_t _chunck_size = _number_of_frames*_channels*sizeof(float);
+    static constexpr float sampling_period = 0.060;//0.040;
+
+
     static constexpr bool _use_fec = true;
     static constexpr opus_int32 packet_lost_percantage = 60; //between 0 and 100
     

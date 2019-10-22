@@ -24,7 +24,8 @@ bool OpusEncoderWrapper::initialize()
 
         // creating encoder structure
 
-        _encoder_state = opus_encoder_create(_sampleing_rate, _channels, OPUS_APPLICATION_VOIP, &error_code);
+        //_encoder_state = opus_encoder_create(_sampleing_rate, _channels, OPUS_APPLICATION_VOIP, &error_code);
+        _encoder_state = opus_encoder_create(16000, _channels, OPUS_APPLICATION_VOIP, &error_code);
 
         if(error_code != OPUS_OK)
         {
