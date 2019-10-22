@@ -94,3 +94,13 @@ opus_int32 OpusEncoderWrapper::encodeFloatData(const float * uncompressed_audio,
 
     return opus_encode_float(_encoder_state, uncompressed_audio, number_of_frames, compressed_audio, max_compression_size_in_bytes);
 }
+
+opus_int32 OpusEncoderWrapper::encodeData(const int16_t * uncompressed_audio, size_t number_of_frames, unsigned char * compressed_audio, opus_int32 max_compression_size_in_bytes)
+{
+    if(number_of_frames != static_cast<size_t >(_number_of_frames))
+    {
+        __android_log_print(ANDROID_LOG_DEBUG, "OpusEncoder", "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
+    }
+
+    return opus_encode(_encoder_state, uncompressed_audio, number_of_frames, compressed_audio, max_compression_size_in_bytes);
+}
