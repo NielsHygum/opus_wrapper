@@ -2,10 +2,9 @@
 // Created by nni on 14.01.19.
 //
 
-#ifndef BINAURALRADIO_OPUS_ENCODER_WRAPPER_H
-#define BINAURALRADIO_OPUS_ENCODER_WRAPPER_H
+#pragma once
 
-#include <opus.h>
+#include <opus/opus.h>
 #include "opus_base_wrapper.h"
 
 class OpusEncoderWrapper : public OpusBaseWrapper {
@@ -37,4 +36,3 @@ public:
 };
 
 
-#endif //BINAURALRADIO_OPUS_ENCODER_WRAPPER_H

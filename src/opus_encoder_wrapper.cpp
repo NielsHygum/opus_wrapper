@@ -3,7 +3,9 @@
 //
 
 #include <cstdlib>
-#include <android/log.h>
+//#include <android/log.h>
+#define LOG_TAG "OpusEncoder"
+#include <generic_log.h>
 #include "opus_encoder_wrapper.h"
 
 OpusEncoderWrapper::OpusEncoderWrapper()
@@ -25,12 +27,13 @@ bool OpusEncoderWrapper::initialize()
         // creating encoder structure
 
         //_encoder_state = opus_encoder_create(_sampleing_rate, _channels, OPUS_APPLICATION_VOIP, &error_code);
-        _encoder_state = opus_encoder_create(16000, _channels, OPUS_APPLICATION_VOIP, &error_code);
+        _encoder_state = opus_encoder_create(OpusEncoderWrapper::_sampleing_rate, _channels, OPUS_APPLICATION_VOIP, &error_code);
 
         if(error_code != OPUS_OK)
         {
             safeDestrustryEncoderState();
-            __android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to create encoder, returned opus error code %d", error_code);
+            //__android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to create encoder, returned opus error code %d", error_code);
+            LOGE("Opus failed to create encoder, returned opus error code %d", error_code);
 
             return false;
         }
@@ -42,7 +45,8 @@ bool OpusEncoderWrapper::initialize()
         if(error_code != OPUS_OK)
         {
             safeDestrustryEncoderState();
-            __android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to set desired bitrate, returned opus error code %d", error_code);
+            //__android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to set desired bitrate, returned opus error code %d", error_code);
+            LOGE( "Opus failed to set desired bitrate, returned opus error code %d", error_code);
 
             return false;
         }
@@ -54,7 +58,8 @@ bool OpusEncoderWrapper::initialize()
             if(error_code != OPUS_OK)
             {
                 safeDestrustryEncoderState();
-                __android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed turn on fec, returned opus error code %d", error_code);
+                //__android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed turn on fec, returned opus error code %d", error_code);
+                LOGE( "Opus failed turn on fec, returned opus error code %d", error_code);
 
                 return false;
             }
@@ -64,7 +69,8 @@ bool OpusEncoderWrapper::initialize()
             if(error_code != OPUS_OK)
             {
                 safeDestrustryEncoderState();
-                __android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to set packet loss percentage, returned opus error code %d", error_code);
+                //__android_log_print(ANDROID_LOG_ERROR, "OpusEncoder", "Opus failed to set packet loss percentage, returned opus error code %d", error_code);
+                LOGE( "Opus failed to set packet loss percentage, returned opus error code %d", error_code);
 
                 return false;
             }
@@ -90,7 +96,8 @@ opus_int32 OpusEncoderWrapper::encodeFloatData(const float * uncompressed_audio,
 {
     if(number_of_frames != static_cast<size_t >(_number_of_frames))
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "OpusEncoder", "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
+        //__android_log_print(ANDROID_LOG_DEBUG, "OpusEncoder", "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
+        LOGD( "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
     }
 
     return opus_encode_float(_encoder_state, uncompressed_audio, number_of_frames, compressed_audio, max_compression_size_in_bytes);
@@ -100,7 +107,8 @@ opus_int32 OpusEncoderWrapper::encodeData(const int16_t * uncompressed_audio, si
 {
     if(number_of_frames != static_cast<size_t >(_number_of_frames))
     {
-        __android_log_print(ANDROID_LOG_DEBUG, "OpusEncoder", "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
+        //__android_log_print(ANDROID_LOG_DEBUG, "OpusEncoder", "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
+        LOGD( "Warning: compressing %lu frames when %d is the optimal number of frames", number_of_frames, _number_of_frames);
     }
 
     return opus_encode(_encoder_state, uncompressed_audio, number_of_frames, compressed_audio, max_compression_size_in_bytes);
