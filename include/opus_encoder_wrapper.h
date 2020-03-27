@@ -4,7 +4,11 @@
 
 #pragma once
 
+#ifdef __ANDROID__
+#include <opus.h>
+#else
 #include <opus/opus.h>
+#endif
 #include "opus_base_wrapper.h"
 
 class OpusEncoderWrapper : public OpusBaseWrapper {
