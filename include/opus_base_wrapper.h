@@ -1,9 +1,7 @@
 //
 // Created by nni on 17.01.19.
 //
-
-#ifndef BINAURALRADIO_OPUS_BASE_WRAPPER_H
-#define BINAURALRADIO_OPUS_BASE_WRAPPER_H
+#pragma once
 
 #include <cstddef>
 //#include <audio_packet.h>
@@ -18,7 +16,7 @@ public:
 
     static constexpr int _channels = 1;
     static constexpr int _compressed_bit_rate = 64000;
-    static constexpr float sampling_period = 0.060;//0.040;
+    static constexpr float _sampling_period = 0.060;//0.040;
 
 
     static constexpr bool _use_fec = true;
@@ -26,4 +24,3 @@ public:
     
 };
 
-#endif //BINAURALRADIO_OPUS_BASE_WRAPPER_H
