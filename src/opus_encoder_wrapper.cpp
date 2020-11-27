@@ -113,3 +113,17 @@ opus_int32 OpusEncoderWrapper::encodeData(const int16_t * uncompressed_audio, si
 
     return opus_encode(_encoder_state, uncompressed_audio, number_of_frames, compressed_audio, max_compression_size_in_bytes);
 }
+
+bool OpusEncoderWrapper::resetState()
+{
+    int error_code = opus_encoder_ctl(_encoder_state, OPUS_RESET_STATE);
+
+    if(error_code != OPUS_OK)
+    {
+        __android_log_print(ANDROID_LOG_ERROR, "OpusDecoder", "Opus failed to reset state, returned opus error code %d", error_code);
+
+        return false;
+    }
+
+    return true;
+}

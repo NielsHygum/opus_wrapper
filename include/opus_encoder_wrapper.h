@@ -10,6 +10,7 @@
 #include <opus/opus.h>
 #endif
 #include "opus_base_wrapper.h"
+#include <cstdint>
 
 class OpusEncoderWrapper : public OpusBaseWrapper {
 
@@ -37,6 +38,8 @@ public:
     //encode data, 1: returns (positive) size of compressed data if success else negative error code
     opus_int32 encodeFloatData(const float * uncompressed_audio, size_t number_of_frames, unsigned char * compressed_audio, opus_int32 max_compression_size_in_bytes);
     opus_int32 encodeData(const int16_t * uncompressed_audio, size_t number_of_frames, unsigned char * compressed_audio, opus_int32 max_compression_size_in_bytes);
+
+    bool resetState();
 };
 
 
